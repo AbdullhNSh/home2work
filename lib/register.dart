@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
   String mobile;
 
   String email;
-
+bool x = false;
   String city ;
 
   String country = 'gaza';
@@ -118,7 +118,7 @@ saveForm(){
   
           if(formKey.currentState.validate()){
                 
-
+x=true;
                 formKey.currentState.save();
       var map = {'radio':"$radio",'companyName' : '$companyName','gender':"$gender",'acountName':'$acountName',
       'instagramAcount':'$instagramAcount','mobile':'$mobile','email':'$email','country':'$country','city':'$city','password':'$password'};
@@ -183,55 +183,21 @@ print(map);
       ),
     ],
   ),
-      /*
-Container(
-        child: RadioListTile(
-          title: Text(
-            widget.option,
-            style: TextStyle(fontSize: 20.0),
-          ),
-          activeColor: Colors.black,
-          value: widget.optionvalue,
-          groupValue: groupvalue,
-          onChanged: (int a) {
-            print(a);
-            setState(() {
-              groupvalue = a;
-            });
-          },
-        ),
-      ),
-      */
+     
                           
 Container(
-  /*child: Row(child: */
-
- /*child: Container(*//*child: Radio(
-   
-    mainAxisAlignment: MainAxisAlignment.center,
-children: [
-  Container(child: Text('Dont have account?' ,style: TextStyle( fontSize: 12 ,color: Colors.black)),
-              margin: EdgeInsets.only(top:15),
-
- 
-   ),
-    Container(child: Text('Sign Up' ,style: TextStyle( fontSize: 12 ,color: Colors.black)),
-              margin: EdgeInsets.only(top:15),
-
- 
-   ),
-]  
-                
-              )*/
+  
               
               ),
 
 
 CustomTextField( label: "Company name", saveFun: saveCompanyName, validationFun: validateNullValue),
         Container(
+          margin: EdgeInsets.only(top:10),
         padding: EdgeInsets.symmetric(horizontal:20),
         width: double.infinity,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)
+        height: 50,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)
         ,border: Border.all(color:Colors.black12),),
               child: DropdownButton<String>(
                 hint: Text(gender),
@@ -255,9 +221,12 @@ CustomTextField( label: "Company name", saveFun: saveCompanyName, validationFun:
           CustomTextField( label: "Email", saveFun: saveEmail, validationFun: validateEmail),
           
             Container(
+                        margin: EdgeInsets.only(top:10),
+
         padding: EdgeInsets.symmetric(horizontal:20),
         width: double.infinity,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)
+        height: 50,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)
         ,border: Border.all(color:Colors.black12),),
               child: DropdownButton<String>(
                 hint: Text(country),
@@ -285,7 +254,7 @@ CustomTextField( label: "Company name", saveFun: saveCompanyName, validationFun:
 */
 Container(
        margin: EdgeInsets.all(10),
-
+      
   child: TextFormField(
 
                           onChanged: (value){
@@ -294,6 +263,7 @@ Container(
                         onSaved: (newValue){
                           this.password=newValue;
                         },
+                        
                         validator: (value){
                           if(value==null || value ==""){
                             return 'required field';
@@ -312,8 +282,9 @@ Container(
 
                       Container(
        margin: EdgeInsets.all(10),
-
+ 
   child: TextFormField(
+    
                         onChanged: (value){
                             this.cPassword=value;
                           },
@@ -335,6 +306,7 @@ Container(
                           labelText: 'Confirm Password',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
+                      
                       ),),
            Container(
                         margin: EdgeInsets.only(top:30),
@@ -347,6 +319,11 @@ Container(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(200)),
                 onPressed: (){
                saveForm();
+               if(x){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return Profile();
+                      }));
+               }
               })),
                       
 

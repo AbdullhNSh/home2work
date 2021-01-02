@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:home2work/profile.dart';
 import 'package:home2work/register.dart';
@@ -11,7 +12,7 @@ class SignIn extends StatefulWidget{
 
 class _SignInState extends State<SignIn> {
 
-
+bool x = false;
     String email;
     String name;
 
@@ -21,7 +22,7 @@ GlobalKey<FormState> formKey = GlobalKey();
 saveForm(){
   
           if(formKey.currentState.validate()){
-                
+                x =true;
 
                 formKey.currentState.save();
       var map = {'email':'$email','name':"$name"};
@@ -47,7 +48,7 @@ print(map);
 
                    //   child: SingleChildScrollView(
                  child: Form(
-                                 key: formKey,
+                   key: formKey,
 
                    child: Column(
 
@@ -145,12 +146,13 @@ print(map);
                     child: Text('LOG IN' ,style: TextStyle(fontWeight: FontWeight.w900 , fontSize: 20 ,color: Colors.white)),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(200)),
                     onPressed: (){
-                    saveForm(
-                      
-                    );
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                  return Profile(); }, ) 
-                    );
+                    saveForm();
+                    print('ok');
+                    if(x){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return Profile();
+                      }));
+                    }
                     
                 })),
                 
@@ -159,16 +161,25 @@ Container(child: Row(
    
     mainAxisAlignment: MainAxisAlignment.center,
 children: [
-  Container(child: Text('Dont have account?' ,style: TextStyle( fontSize: 12 ,color: Colors.black)),
-                margin: EdgeInsets.only(top:15),
+  Container(
+        margin: EdgeInsets.only(top:10),
 
- 
-   ),
-    Container(child: Text('Sign Up' ,style: TextStyle( fontSize: 12 ,color: Colors.black)),
-                margin: EdgeInsets.only(top:15),
+    child : RichText(
+      text: TextSpan(
+        children: <TextSpan>[
+          TextSpan(
+              text: 'Dont have account?   Sign Up', style: TextStyle(color: Colors.black),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return Register(); }));
+                }),
+          
+        ],
+      ),
+    )
 
- 
-   ),
+    )
 ]  
                     
                 )),
